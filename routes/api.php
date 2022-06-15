@@ -19,4 +19,10 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::get('books', 'HomeController@getTheMostDiscountBooks');
+Route::get('books1', 'HomeController@getTheMostViewedBooks');
+Route::get('books2', 'HomeController@getTheMostRattingBoooks');
+Route::get('shopbooks', 'ShopController@listingBooks');
+
+
+
 
