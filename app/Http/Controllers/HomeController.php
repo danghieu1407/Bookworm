@@ -20,26 +20,38 @@ class HomeController extends Controller
     public function getTheMostDiscountBooks()
     {
         //querry select * from book,discount where book.id = discount.book_id order by discount.discount_price desc limit 10
-        $postgre = Discount::select('book_id')->from('discount')->orderBy('discount_price','desc')->get();
+        // $postgre = Discount::select('book_id')->from('discount')->orderBy('discount_price','desc')->limit(10)->get();
   
-        foreach ($postgre as $key => $value) {
-            $book = $this->bookModel->where('id',$value->book_id)->with('Discount')->first();
-            $book->discount = $value;
-            $books[] = $book;
-        }
-  
+        // foreach ($postgre as $key => $value) {
+        //     $book = $this->bookModel->where('id',$value->book_id)->with('Discount')->first();
+        //     $book->discount = $value;
+        //     $books[] = $book;
+        // }
+
+        $books =$this->bookModel
+        ->join('discount','book.id','=','discount.book_id')
+        ->select('book.*','discount.*')
+        ->orderBy('discount.discount_price','desc')
+        ->limit(10)
+        ->get();
         return  $books;
     }
 
     public function getTheMostRattingBoooks(){
-        //querry select * from book,review where book.id = review.book_id order by review.rating desc limit 8
+        //get the most ratting books order by review.ratting desc limit 8
+        $books = $this->bookModel
+        ->join('review','book.id','=','review.book_id')
+        ->select('book.*','review.rating_star')
+        ->orderBy('review.rating_star','desc')
+        ->limit(8)
+        ->get();
+        return $books;
+
     }
     public function getTheMostReviewBooks(){
-        //querry select * from book,order_item where book.id = order_item.book_id order by order_item.quantity desc limit 8
-        // dd("gekko");
-        // $list = $this->bookModel->with('Review')->select('book.*','review.rating')->join('review','book.id','=','review.book_id')->orderBy('review.rating','desc')->limit(8)->get();
-     
-        // return $list;
+        // get top 8 books with most reviews - total number review of a book and lowest final price
+
+
 
     }
 
