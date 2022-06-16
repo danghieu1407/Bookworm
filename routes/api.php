@@ -19,9 +19,23 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::get('books', 'HomeController@getTheMostDiscountBooks');
-Route::get('books1', 'HomeController@getTheMostViewedBooks');
+Route::get('books1', 'HomeController@getTheMostReviewBooks');
 Route::get('books2', 'HomeController@getTheMostRattingBoooks');
+
 Route::get('shopbooks', 'ShopController@listingBooks');
+Route::get('sortByOnSales', 'ShopController@sortByOnSales');
+Route::get('sortByLowtoHigh', 'ShopController@sortByLowtoHigh');
+Route::get('sortByCategoryName', 'ShopController@sortByCategoryName');
+Route::get('sortByAuthor', 'ShopController@sortByAuthor');
+Route::get('sortByRatingReview', 'ShopController@sortByRatingReview');
+
+
+
+
+
+
+
+
 
 
 
